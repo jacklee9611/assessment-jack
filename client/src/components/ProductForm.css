@@ -1,0 +1,48 @@
+.productForm {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.productForm .image-preview {
+  flex: 1; /* Allow the image to take up available space */
+  padding: 0 10px; /* Add spacing around the image */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.productForm .image-preview img {
+  width: 320px;
+  height: 320px;
+  margin: auto;
+}
+
+.productForm .product-value {
+  flex: 2; /* Allow the product values to take up available space */
+  margin-top: 50px;
+  padding: 0 10px; /* Add spacing around the product values */
+  display: flex;
+  flex-direction: column; /* Stack the text fields vertically */
+}
+
+.productForm .textfield {
+  margin-bottom: 30px;
+}
+
+.button-form {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 768px) {
+  .productForm {
+    flex-direction: column; /* Stack elements in a column layout */
+  }
+
+  .image-preview,
+  .product-value {
+    flex: none; /* Reset flex property to prevent equal distribution */
+    width: 100%; /* Take up 100% width */
+    padding: 0; /* Reset spacing */
+  }
+}
