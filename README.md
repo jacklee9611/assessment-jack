@@ -1,3 +1,6 @@
+# Description:
+The assessment were developed using ReactJS as the front-end library, while the back-end was developed using Node.js with the Express framework and Sequelize, all integrated with MySQL Benchwork for the database.
+
 # Screenshots:
 
 ## 1. **Homepage:**
@@ -22,4 +25,7 @@
   
   Example 3:
   ![error3](https://github.com/jacklee9611/assessment-jack/assets/58587453/e1493671-3567-4d28-b753-eb2f8aa9d56e)
+
+## 4. **Product table datatype:**
+![table](https://github.com/jacklee9611/assessment-jack/assets/58587453/f8ab3fd2-f772-4eba-8e37-a1e0a928127d)
   
