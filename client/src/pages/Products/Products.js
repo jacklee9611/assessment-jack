@@ -22,7 +22,7 @@ const Products = () => {
     title: "",
     subtitle: "",
   });
-  const [page, setPage] = useState(1); // Current page
+  const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
 
   // Function to toggle sorting direction
@@ -30,6 +30,52 @@ const Products = () => {
     setSortDirection((prevSortDirection) =>
       prevSortDirection === "asc" ? "desc" : "asc"
     );
+    updateFilteredProducts(); // Update filtered products after changing sort direction
+  };
+
+  // Handle search button click
+  const handleSearchClick = () => {
+    setCurrentPage(1); // Reset to the first page when searching
+    updateFilteredProducts();
+  };
+
+  // Handle close button click
+  const clearInput = () => {
+    setSearchKeyword("");
+    setCurrentPage(1); // Reset to the first page when clearing search
+    setFilteredProducts(getProducts);
+  };
+
+  // Update filtered products based on search and pagination
+  const updateFilteredProducts = (initialProducts = getProducts) => {
+    let updatedProducts = [...initialProducts]; // Make a copy of all products
+
+    if (searchKeyword.trim() !== "") {
+      // Filter products based on searchKeyword
+      updatedProducts = updatedProducts.filter(
+        (product) =>
+          product.productBrand
+            .toLowerCase()
+            .includes(searchKeyword.toLowerCase()) ||
+          product.productName
+            .toLowerCase()
+            .includes(searchKeyword.toLowerCase())
+      );
+    }
+
+    // Sort products by Product Name in alphabetical order
+    updatedProducts.sort((a, b) => {
+      const nameA = a.productName.toLowerCase();
+      const nameB = b.productName.toLowerCase();
+
+      if (sortDirection === "asc") {
+        return nameA.localeCompare(nameB);
+      } else {
+        return nameB.localeCompare(nameA);
+      }
+    });
+
+    setFilteredProducts(updatedProducts);
   };
 
   useEffect(() => {
@@ -37,26 +83,10 @@ const Products = () => {
       .get(`http://localhost:3001/products/fetchProduct`)
       .then((response) => {
         const products = response.data;
-
-        // Sort products by Product Name in alphabetical order
-        products.sort((a, b) => {
-          const nameA = a.productName.toLowerCase();
-          const nameB = b.productName.toLowerCase();
-
-          if (sortDirection === "asc") {
-            return nameA.localeCompare(nameB);
-          } else {
-            return nameB.localeCompare(nameA);
-          }
-        });
-
-        // Display the first 20 products by default
-        const defaultProducts = products.slice(0, 20);
-
-        setGetProducts(response.data);
-        setFilteredProducts(defaultProducts); // Set filteredProducts initially
+        setGetProducts(products);
+        setFilteredProducts(products); // Initialize filteredProducts with all products
       });
-  }, [sortDirection]);
+  }, []);
 
   // Handle Delete Button
   const handleDeleteClick = (productId) => {
@@ -68,6 +98,8 @@ const Products = () => {
         setGetProducts((prevProducts) =>
           prevProducts.filter((product) => product.id !== productId)
         );
+        setCurrentPage(1);
+        updateFilteredProducts(); // Update filtered products
       })
       .catch((error) => {
         console.error("Error deleting product:", error);
@@ -79,41 +111,13 @@ const Products = () => {
     });
   };
 
-  // Handle search button click
-  const handleSearchClick = () => {
-    if (searchKeyword.trim() === "") {
-      // If searchKeyword is empty, display all products
-      setFilteredProducts(getProducts); // Set filteredProducts to all products
-    } else {
-      // Filter products based on searchKeyword
-      const newFilteredProducts = getProducts.filter(
-        (product) =>
-          product.productBrand
-            .toLowerCase()
-            .includes(searchKeyword.toLowerCase()) ||
-          product.productName
-            .toLowerCase()
-            .includes(searchKeyword.toLowerCase())
-      );
-      setFilteredProducts(newFilteredProducts);
-    }
-  };
-
-  // Handle close search icon
-  const clearInput = () => {
-    setFilteredProducts(getProducts);
-    setSearchKeyword("");
-  };
-
-  // Calculate the number of pages
-  const numPages = Math.ceil(filteredProducts.length / itemsPerPage);
-
-  // Calculate the starting and ending indices for the current page
-  const startIndex = (page - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  // Get the products for the current page
-  const productsForPage = filteredProducts.slice(startIndex, endIndex);
+  // Calculate pagination indexes
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredProducts.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   return (
     <>
@@ -156,7 +160,8 @@ const Products = () => {
         <div className="product-container-wrapper">
           {/* Product container */}
           <div className="product-container">
-            {filteredProducts.map((value, key) => {
+            {/* {filteredProducts.map((value, key) => { */}
+            {currentItems.map((value, key) => {
               return (
                 <div className="product-card" key={key}>
                   <div className="img-container">
@@ -222,10 +227,10 @@ const Products = () => {
           </div>
           <Stack className="pagination" spacing={2}>
             <Pagination
-              count={numPages}
-              page={page}
+              count={Math.ceil(filteredProducts.length / itemsPerPage)}
+              page={currentPage}
               shape="rounded"
-              onChange={(event, value) => setPage(value)}
+              onChange={(event, value) => setCurrentPage(value)}
             />
           </Stack>
         </div>
