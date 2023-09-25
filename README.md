@@ -1,5 +1,6 @@
 # Description:
-The assessment were developed using ReactJS as the front-end library, while the back-end was developed using Node.js with the Express framework and Sequelize, all integrated with MySQL Benchwork for the database.
+The assessment were developed using ReactJS as the frontend library, while the back-end was developed using Node.js with the Express framework and Sequelize, all integrated with MySQL Benchwork for the database.
+
 
 # Screenshots:
 
