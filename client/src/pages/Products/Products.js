@@ -84,7 +84,8 @@ const Products = () => {
       .then((response) => {
         const products = response.data;
         setGetProducts(products);
-        setFilteredProducts(products); // Initialize filteredProducts with all products
+        // Initialize filteredProducts with all products and sort them alphabetically initially
+        updateFilteredProducts(products); // Pass the products as an argument to set the initial sorting
       });
   }, []);
 

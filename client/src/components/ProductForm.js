@@ -31,9 +31,22 @@ const ProductForm = ({ initialProductData }) => {
     productName: Yup.string().required("Name is required"),
     productBarcode: Yup.string()
       .required("Barcode is required")
-      .matches(
-        /^[0-9]{12}$/,
-        "Barcode must be exactly 12 digits and only number 0-9 is allowed"
+      .test("is-numeric", "Barcode must contain only numbers", (value) => {
+        return /^\d+$/.test(value);
+      })
+      .test(
+        "is-not-more-than-12-digits",
+        "Barcode cannot be more than 12 digits",
+        (value) => {
+          return value.length <= 12;
+        }
+      )
+      .test(
+        "is-not-less-than-12-digits",
+        "Barcode cannot be less than 12 digits",
+        (value) => {
+          return value.length >= 12;
+        }
       ),
   });
 
