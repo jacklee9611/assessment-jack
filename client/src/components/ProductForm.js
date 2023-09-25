@@ -45,26 +45,6 @@ const ProductForm = ({ initialProductData }) => {
       productBarcode: initialProductData.productBarcode || "",
     },
     validationSchema,
-    // onSubmit: (values) => {
-    //   // Handle form submission (e.g., send data to the server)
-    //   axios
-    //     .put(`http://localhost:3001/products/update/${initialProductData.id}`, {
-    //       imageUrl: formik.values.productImage,
-    //       productBrand: formik.values.productBrand,
-    //       productName: formik.values.productName,
-    //       productBarcode: formik.values.productBarcode,
-    //     })
-    //     .then((response) => {
-    //       // Handle success, e.g., show a success message
-    //       toast.success(response.data.message, { autoClose: 650 });
-    //       navigate("/");
-    //     })
-    //     .catch((error) => {
-    //       // Handle errors, e.g., show an error message
-    //       console.error("Error updating product:", error);
-    //       toast.error("Error updating product:", { autoClose: 2000 });
-    //     });
-    // },
     onSubmit: (values) => {
       if (initialProductData.id) {
         // If initialProductData has an id, it's an existing data, perform an update

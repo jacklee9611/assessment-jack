@@ -8,15 +8,6 @@ const EditProduct = () => {
   const { id } = useParams();
   const [productData, setProductData] = useState(null);
 
-  // useEffect(() => {
-  //   // Fetch product data by ID
-  //   axios
-  //     .get(`http://localhost:3001/products/fetchProductbyId/${id}`)
-  //     .then((response) => {
-  //       setProductData(response.data);
-  //     });
-  // }, [id]);
-
   useEffect(() => {
     if (id === "new") {
       // For a new product, initialize with empty data

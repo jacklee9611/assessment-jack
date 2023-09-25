@@ -34,7 +34,7 @@
   justify-content: flex-end;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
   .productForm {
     flex-direction: column; /* Stack elements in a column layout */
   }
@@ -44,5 +44,9 @@
     flex: none; /* Reset flex property to prevent equal distribution */
     width: 100%; /* Take up 100% width */
     padding: 0; /* Reset spacing */
+  }
+
+  .productForm .textfield {
+    margin-bottom: 20px;
   }
 }
