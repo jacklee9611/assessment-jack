@@ -11,6 +11,7 @@
   ![editproductchange](https://github.com/jacklee9611/assessment-jack/assets/58587453/65dd5665-c07b-43d9-8241-c278cb13a628)
 
   If user input invalid characters or exceed or less than 12 digits number will received error and cannot be save:
+  
   Example 1:
   ![error1](https://github.com/jacklee9611/assessment-jack/assets/58587453/6dcfd00c-ae63-4df4-ab35-76c97c12d452)
 
