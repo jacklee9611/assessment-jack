@@ -1,3 +1,5 @@
+# Screenshots:
+
 ## 1. **Homepage:**
 ![homepage](https://github.com/jacklee9611/assessment-jack/assets/58587453/4252812a-0147-4a37-95c0-e11896c12013)
 
