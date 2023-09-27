@@ -1,6 +1,8 @@
 .productForm {
   display: flex;
   flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
 }
 
 .productForm .image-preview {
@@ -37,6 +39,7 @@
 @media screen and (max-width: 600px) {
   .productForm {
     flex-direction: column; /* Stack elements in a column layout */
+    width: 100%;
   }
 
   .image-preview,

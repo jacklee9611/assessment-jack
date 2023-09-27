@@ -9,6 +9,7 @@ import DefaultImg from "../assets/images/defaultImage.png";
 import TextField from "@mui/material/TextField";
 import CustomButton from "./Controls/CustomButton";
 import ConfirmDialog from "../components/Controls/ConfirmDialog";
+import Paper from "@mui/material/Paper";
 
 const ProductForm = ({ initialProductData }) => {
   let navigate = useNavigate();
